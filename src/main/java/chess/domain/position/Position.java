@@ -1,5 +1,7 @@
 package chess.domain.position;
 
+import java.util.Objects;
+
 public final class Position {
 
     private final File file;
@@ -16,5 +18,33 @@ public final class Position {
 
     public int computeFileDirection(final Position target) {
         return this.file.computeDistance(target.file);
+    }
+
+    public Position move(final int rankDirection, final int fileDirection) {
+        Rank rankMoved = this.rank.move(rankDirection);
+        File fileMoved = this.file.move(fileDirection);
+
+        return new Position(fileMoved, rankMoved);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return file == position.file && rank == position.rank;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(file, rank);
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "file=" + file +
+                ", rank=" + rank +
+                '}';
     }
 }
