@@ -40,9 +40,10 @@ public final class UnitDirection {
 
     public List<Position> computePath(final Position source, final Position target) {
         List<Position> path = new ArrayList<>();
-        while (!source.equals(target)) {
-            source.move(rankDirection, fileDirection);
-            path.add(source);
+        var sourceCopy = source;
+        while (!sourceCopy.equals(target)) {
+            sourceCopy = sourceCopy.move(rankDirection, fileDirection);
+            path.add(sourceCopy);
         }
         return path;
     }

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UnitDirectionTest {
 
@@ -120,5 +120,48 @@ class UnitDirectionTest {
         final var path = UnitDirection.of(source, target);
 
         assertThat(path.isStraight()).isFalse();
+    }
+
+    @Test
+    void computePath() {
+        final var source = new Position(File.A, Rank.ONE);
+        final var target = new Position(File.H, Rank.EIGHT);
+
+        final var path = UnitDirection.of(source, target);
+
+        assertThat(path.computePath(source, target)).containsExactlyInAnyOrder(
+                new Position(File.B, Rank.TWO),
+                new Position(File.C, Rank.THREE),
+                new Position(File.D, Rank.FOUR),
+                new Position(File.E, Rank.FIVE),
+                new Position(File.F, Rank.SIX),
+                new Position(File.G, Rank.SEVEN),
+                new Position(File.H, Rank.EIGHT)
+        );
+    }
+
+    @Test
+    void computePath2() {
+        final var source = new Position(File.A, Rank.THREE);
+        final var target = new Position(File.H, Rank.SEVEN);
+
+        final var path = UnitDirection.of(source, target);
+
+        assertThat(path.computePath(source, target)).containsExactlyInAnyOrder(
+                new Position(File.H, Rank.SEVEN)
+        );
+    }
+
+    @Test
+    void computePath3() {
+        final var source = new Position(File.A, Rank.THREE);
+        final var target = new Position(File.C, Rank.SEVEN);
+
+        final var path = UnitDirection.of(source, target);
+
+        assertThat(path.computePath(source, target)).containsExactlyInAnyOrder(
+                new Position(File.B, Rank.FIVE),
+                new Position(File.C, Rank.SEVEN)
+        );
     }
 }
