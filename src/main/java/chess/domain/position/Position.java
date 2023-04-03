@@ -31,6 +31,10 @@ public final class Position {
         return new Position(fileMoved, rankMoved);
     }
 
+    public boolean isNearSquare(final Position target) {
+        return Math.abs(computeRankDistance(target)) <= 1 && Math.abs(computeFileDistance(target)) <= 1;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
