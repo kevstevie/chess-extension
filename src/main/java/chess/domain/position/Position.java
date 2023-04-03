@@ -12,12 +12,16 @@ public final class Position {
         this.rank = rank;
     }
 
-    public int computeRankDirection(final Position target) {
+    public int computeRankDistance(final Position target) {
         return this.rank.computeDistance(target.rank);
     }
 
-    public int computeFileDirection(final Position target) {
+    public int computeFileDistance(final Position target) {
         return this.file.computeDistance(target.file);
+    }
+
+    public int computeDistance(final Position target) {
+        return Math.abs(computeFileDistance(target)) + Math.abs(computeRankDistance(target));
     }
 
     public Position move(final int rankDirection, final int fileDirection) {

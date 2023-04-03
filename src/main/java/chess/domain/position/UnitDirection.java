@@ -17,8 +17,8 @@ public final class UnitDirection {
     }
 
     public static UnitDirection of(final Position source, final Position target) {
-        final int rankDirection = source.computeRankDirection(target);
-        final int fileDirection = source.computeFileDirection(target);
+        final int rankDirection = source.computeRankDistance(target);
+        final int fileDirection = source.computeFileDistance(target);
 
         final var gcd = computeGcd(rankDirection, fileDirection);
 
@@ -62,5 +62,21 @@ public final class UnitDirection {
 
     public int getFileDirection() {
         return fileDirection;
+    }
+
+    public boolean isSameRankValue(final int x) {
+        return rankDirection == x;
+    }
+
+    public boolean isSameFileValue(final int y) {
+        return fileDirection == y;
+    }
+
+    @Override
+    public String toString() {
+        return "UnitDirection{" +
+                "rankDirection=" + rankDirection +
+                ", fileDirection=" + fileDirection +
+                '}';
     }
 }
