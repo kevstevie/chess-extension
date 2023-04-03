@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Piece {
 
-    List<Position> computeMovablePositions(final Position source);
+    List<Position> computeMovablePositions(final Position target);
 }
