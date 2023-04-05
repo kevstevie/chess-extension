@@ -17,6 +17,11 @@ public final class BlackInitialPawn implements PawnStatus {
         throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
     }
 
+    @Override
+    public boolean isPromotable(final Position position) {
+        return false;
+    }
+
     enum Direction {
         NORTH(-1, 0),
         NORTH_EAST(-1, 1),

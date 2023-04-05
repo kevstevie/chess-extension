@@ -39,6 +39,10 @@ public final class Position {
         return this.file == target.file;
     }
 
+    public boolean isSameRank(final int number) {
+        return this.rank == Rank.of(number);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

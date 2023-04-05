@@ -37,4 +37,12 @@ public final class Pawn implements Piece {
         }
         return !isTargetEmpty;
     }
+
+    public boolean isPromotable() {
+        return status.isPromotable(position);
+    }
+
+    public Piece promote(final Piece piece) {
+        return piece;
+    }
 }

@@ -61,4 +61,48 @@ class PawnTest {
 
         assertThat(result).isFalse();
     }
+
+    @Test
+    void isPromotable_black_false() {
+        final var source = new Position(File.A, Rank.ONE);
+
+        final var pawn = new Pawn(source, new BlackInitialPawn());
+
+        boolean result = pawn.isPromotable();
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void isPromotable_black_true() {
+        final var source = new Position(File.A, Rank.ONE);
+
+        final var pawn = new Pawn(source, new BlackPawn());
+
+        boolean result = pawn.isPromotable();
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void isPromotable_white_true() {
+        final var source = new Position(File.A, Rank.EIGHT);
+
+        final var pawn = new Pawn(source, new WhitePawn());
+
+        boolean result = pawn.isPromotable();
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void isPromotable_white_false() {
+        final var source = new Position(File.A, Rank.SEVEN);
+
+        final var pawn = new Pawn(source, new WhitePawn());
+
+        boolean result = pawn.isPromotable();
+
+        assertThat(result).isFalse();
+    }
 }

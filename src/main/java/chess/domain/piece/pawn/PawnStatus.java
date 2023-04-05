@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PawnStatus {
     List<Position> computeMovablePositions(Position position, Position target);
+
+    boolean isPromotable(Position position);
 }

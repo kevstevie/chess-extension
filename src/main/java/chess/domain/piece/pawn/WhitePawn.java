@@ -9,6 +9,7 @@ import java.util.List;
 public final class WhitePawn implements PawnStatus {
 
     private static final int FORWARD_ONE_SQUARE = 1;
+    private static final int PROMOTION_RANK = 8;
 
     @Override
     public List<Position> computeMovablePositions(final Position position, final Position target) {
@@ -17,6 +18,11 @@ public final class WhitePawn implements PawnStatus {
             return unitDirection.computePath(position, target);
         }
         throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
+    }
+
+    @Override
+    public boolean isPromotable(final Position position) {
+        return position.isSameRank(PROMOTION_RANK);
     }
 
     enum Direction {
