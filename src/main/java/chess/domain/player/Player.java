@@ -47,4 +47,12 @@ public final class Player {
     public boolean isEmpty(final Position target) {
         return pieces.isEmpty(target);
     }
+
+    public Position findKingPosition() {
+        return pieces.findKingPosition();
+    }
+
+    public List<List<Position>> findAllPath(final Position kingPosition) {
+        return pieces.findAllPath(kingPosition);
+    }
 }

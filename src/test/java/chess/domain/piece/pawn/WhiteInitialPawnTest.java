@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 class WhiteInitialPawnTest {
@@ -56,24 +55,26 @@ class WhiteInitialPawnTest {
     }
 
     @Test
-    void computeMovablePositions_exception() {
+    void computeMovablePositions_illegalMove_empty() {
         final var source = new Position(File.A, Rank.TWO);
         final var target = new Position(File.A, Rank.ONE);
 
         final var pawn = new WhiteInitialPawn();
 
-        assertThatThrownBy(() -> pawn.computeMovablePositions(source, target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = pawn.computeMovablePositions(source, target);
+
+        assertThat(positions).isEmpty();
     }
 
     @Test
-    void computeMovablePositions_exception2() {
+    void computeMovablePositions_illegalMove_empty2() {
         final var source = new Position(File.A, Rank.TWO);
         final var target = new Position(File.C, Rank.FOUR);
 
         final var pawn = new WhiteInitialPawn();
 
-        assertThatThrownBy(() -> pawn.computeMovablePositions(source, target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = pawn.computeMovablePositions(source, target);
+
+        assertThat(positions).isEmpty();
     }
 }

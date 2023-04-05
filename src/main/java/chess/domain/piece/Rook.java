@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Rook extends NormalPiece {
@@ -19,7 +20,7 @@ public final class Rook extends NormalPiece {
         if (unitDirection.isStraight()) {
             return unitDirection.computePath(position, target);
         }
-        throw new IllegalArgumentException("Rook은 대각선으로 이동할 수 없습니다.");
+        return new ArrayList<>();
     }
 
     @Override
@@ -30,5 +31,10 @@ public final class Rook extends NormalPiece {
     @Override
     public Piece move(final Position target) {
         return new Rook(target);
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

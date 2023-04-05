@@ -34,4 +34,9 @@ public final class Empty implements Piece {
     public boolean confirmMove(final boolean isTargetEmpty, final Position target) {
         throw new IllegalArgumentException("빈칸은 이동할 수 없습니다.");
     }
+
+    @Override
+    public Position getPosition() {
+        throw new IllegalArgumentException("빈칸은 이동할 수 없습니다.");
+    }
 }

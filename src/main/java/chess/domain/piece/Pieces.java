@@ -9,6 +9,7 @@ import chess.domain.position.Rank;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Pieces {
 
@@ -80,10 +81,6 @@ public final class Pieces {
         initialWhitePieces.add(new Rook(new Position(File.H, Rank.ONE)));
     }
 
-    public List<Piece> getPieces() {
-        return pieces;
-    }
-
     public Piece findPiece(final Position source) {
         return pieces.stream()
                 .filter(piece -> piece.isSamePosition(source))
@@ -114,7 +111,25 @@ public final class Pieces {
         return false;
     }
 
+    public Position findKingPosition() {
+        return pieces.stream()
+                .filter(piece -> piece.getClass() == King.class)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("King이 없습니다."))
+                .getPosition();
+    }
+
+    public List<List<Position>> findAllPath(final Position target) {
+        return pieces.stream()
+                .map(piece -> piece.computeMovablePositions(target))
+                .collect(Collectors.toList());
+    }
+
     public boolean isEmpty(final Position target) {
         return findPiece(target) == Empty.getInstance();
+    }
+
+    public List<Piece> getPieces() {
+        return pieces;
     }
 }

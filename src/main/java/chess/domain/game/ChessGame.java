@@ -29,12 +29,19 @@ public final class ChessGame {
         validateOwnPiece(target);
         final Piece piece = currentTurnPlayer.findPiece(source);
         final List<Position> movablePositions = piece.computeMovablePositions(target);
+        validateIsMovable(movablePositions);
         validatePath(movablePositions);
         boolean isTargetEmpty = waitingPlayer.isEmpty(target);
         if (piece.confirmMove(isTargetEmpty, target)) {
             currentTurnPlayer.move(source, target);
             removeIfOpponentHasPiece(target);
             changeTurn();
+        }
+    }
+
+    private void validateIsMovable(final List<Position> movablePositions) {
+        if (movablePositions.isEmpty()) {
+            throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
         }
     }
 
@@ -60,6 +67,20 @@ public final class ChessGame {
         final Player temp = currentTurnPlayer;
         currentTurnPlayer = waitingPlayer;
         waitingPlayer = temp;
+    }
+
+    public boolean isCheck() {
+        final var kingPosition = waitingPlayer.findKingPosition();
+        final List<List<Position>> allPath = currentTurnPlayer.findAllPath(kingPosition);
+        boolean isPathExist = allPath.stream()
+                .anyMatch(path -> path.contains(kingPosition));
+        boolean isNotBlockedOwnPiece = allPath.stream()
+                .noneMatch(path -> currentTurnPlayer.hasPieceOnPath(path));
+        boolean isNotBlockedOpponentPiece = allPath.stream()
+                .peek(path -> path.remove(kingPosition))
+                .noneMatch(path -> waitingPlayer.hasPieceOnPath(path));
+
+        return isPathExist && isNotBlockedOwnPiece && isNotBlockedOpponentPiece;
     }
 
     public Player getCurrentTurnPlayer() {

@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class King extends NormalPiece {
@@ -19,7 +20,7 @@ public final class King extends NormalPiece {
         if (position.isNearSquare(target)) {
             return unitDirection.computePath(position, target);
         }
-        throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
+        return new ArrayList<>();
     }
 
     @Override
@@ -30,5 +31,10 @@ public final class King extends NormalPiece {
     @Override
     public Piece move(final Position target) {
         return new King(target);
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

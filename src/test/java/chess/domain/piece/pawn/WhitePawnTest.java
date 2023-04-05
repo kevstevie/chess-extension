@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class WhitePawnTest {
 
@@ -27,7 +26,7 @@ class WhitePawnTest {
     }
 
     @Test
-    void computeMovablePositin_diagonal() {
+    void computeMovablePosition_diagonal() {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.B, Rank.FIVE);
 
@@ -41,24 +40,26 @@ class WhitePawnTest {
     }
 
     @Test
-    void computeMovablePositions_fowardTwo_exception() {
+    void computeMovablePositions_forwardTwo_empty() {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.SIX);
 
         final var pawn = new WhitePawn();
 
-        assertThatThrownBy(() -> pawn.computeMovablePositions(source, target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = pawn.computeMovablePositions(source, target);
+
+        assertThat(positions).isEmpty();
     }
 
     @Test
-    void computeMovablePositions_digonal_exception() {
+    void computeMovablePositions_diagonal_empty() {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.C, Rank.SIX);
 
         final var pawn = new WhitePawn();
 
-        assertThatThrownBy(() -> pawn.computeMovablePositions(source, target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = pawn.computeMovablePositions(source, target);
+
+        assertThat(positions).isEmpty();
     }
 }

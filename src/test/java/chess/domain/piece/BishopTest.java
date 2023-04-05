@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class BishopTest {
 
@@ -48,13 +47,14 @@ class BishopTest {
     }
 
     @Test
-    void computeMovablePositions_exception() {
+    void computeMovablePositions_illegalMove_empty() {
         final var source = new Position(File.A, Rank.ONE);
         final var target = new Position(File.H, Rank.ONE);
 
         final var bishop = new Bishop(source);
 
-        assertThatThrownBy(() -> bishop.computeMovablePositions(target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = bishop.computeMovablePositions(target);
+
+        assertThat(positions).isEmpty();
     }
 }

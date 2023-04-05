@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Bishop extends NormalPiece {
@@ -19,7 +20,7 @@ public final class Bishop extends NormalPiece {
         if (unitDirection.isDiagonal()) {
             return unitDirection.computePath(position, target);
         }
-        throw new IllegalArgumentException("Bishop은 대각선이 아니면 이동할 수 없습니다.");
+        return new ArrayList<>();
     }
 
     @Override
@@ -30,5 +31,10 @@ public final class Bishop extends NormalPiece {
     @Override
     public Piece move(final Position target) {
         return new Bishop(target);
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

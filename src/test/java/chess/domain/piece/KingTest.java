@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class KingTest {
 
@@ -38,7 +37,7 @@ class KingTest {
         assertThat(positions).containsExactly(target);
     }
 
-    static Stream<Arguments> kingMovableException() {
+    static Stream<Arguments> kingNotMovable() {
         return Stream.of(
                 Arguments.arguments(new Position(File.A, Rank.FOUR), new Position(File.A, Rank.SIX)),
                 Arguments.arguments(new Position(File.A, Rank.FOUR), new Position(File.C, Rank.SIX)),
@@ -52,11 +51,12 @@ class KingTest {
     }
 
     @ParameterizedTest
-    @MethodSource("kingMovableException")
-    void computeMovablePositions_exception(final Position source, final Position target) {
+    @MethodSource("kingNotMovable")
+    void computeMovablePositions_illegal_empty(final Position source, final Position target) {
         final var king = new King(source);
 
-        assertThatThrownBy(() -> king.computeMovablePositions(target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = king.computeMovablePositions(target);
+
+        assertThat(positions).isEmpty();
     }
 }

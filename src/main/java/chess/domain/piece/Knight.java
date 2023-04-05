@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public final class Knight extends NormalPiece {
         if (Direction.isKnightMovable(unitDirection) && position.computeDistance(target) == KNIGHT_MOVE_DISTANCE) {
             return unitDirection.computePath(position, target);
         }
-        throw new IllegalArgumentException("나이트의 이동 규칙에 맞지 않습니다.");
+        return new ArrayList<>();
     }
 
     @Override
@@ -33,6 +34,11 @@ public final class Knight extends NormalPiece {
     @Override
     public Piece move(final Position target) {
         return new Knight(target);
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 
     enum Direction {

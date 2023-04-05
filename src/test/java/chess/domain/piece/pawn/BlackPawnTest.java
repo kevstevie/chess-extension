@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class BlackPawnTest {
 
@@ -41,13 +40,14 @@ class BlackPawnTest {
     }
 
     @Test
-    void computeMovablePositions_forwardTwo_exception() {
+    void computeMovablePositions_forwardTwo_empty() {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.TWO);
 
         final var pawn = new BlackPawn();
 
-        assertThatThrownBy(() -> pawn.computeMovablePositions(source, target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = pawn.computeMovablePositions(source, target);
+
+        assertThat(positions).isEmpty();
     }
 }

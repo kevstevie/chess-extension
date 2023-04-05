@@ -86,4 +86,22 @@ class PiecesTest {
 
         assertThat(hasPieceOnPath).isFalse();
     }
+
+    @Test
+    void kingPosition_white_E1() {
+        final var pieces = Pieces.ofInitialWhitePieces();
+
+        final var kingPosition = pieces.findKingPosition();
+
+        assertThat(kingPosition).isEqualTo(new Position(File.E, Rank.ONE));
+    }
+
+    @Test
+    void kingPosition_black_E8() {
+        final var pieces = Pieces.ofInitialBlackPieces();
+
+        final var kingPosition = pieces.findKingPosition();
+
+        assertThat(kingPosition).isEqualTo(new Position(File.E, Rank.EIGHT));
+    }
 }

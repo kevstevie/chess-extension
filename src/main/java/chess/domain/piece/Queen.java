@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Queen extends NormalPiece {
@@ -20,8 +21,7 @@ public final class Queen extends NormalPiece {
         if (unitDirection.isStraight() || unitDirection.isDiagonal()) {
             return unitDirection.computePath(position, target);
         }
-
-        throw new IllegalArgumentException("Queen은 대각선 또는 직선으로만 이동할 수 있습니다.");
+        return new ArrayList<>();
     }
 
     @Override
@@ -32,5 +32,10 @@ public final class Queen extends NormalPiece {
     @Override
     public Piece move(final Position target) {
         return new Queen(target);
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

@@ -38,6 +38,11 @@ public final class Pawn implements Piece {
         return !isTargetEmpty;
     }
 
+    @Override
+    public Position getPosition() {
+        return position;
+    }
+
     public boolean isPromotable() {
         return status.isPromotable(position);
     }

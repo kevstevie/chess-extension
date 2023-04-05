@@ -3,6 +3,7 @@ package chess.domain.piece.pawn;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public final class WhitePawn implements PawnStatus {
         if (Direction.isMovable(unitDirection) && position.computeRankDistance(target) == FORWARD_ONE_SQUARE) {
             return unitDirection.computePath(position, target);
         }
-        throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
+        return new ArrayList<>();
     }
 
     @Override

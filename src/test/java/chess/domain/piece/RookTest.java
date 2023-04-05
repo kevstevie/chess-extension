@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RookTest {
 
@@ -21,14 +20,15 @@ class RookTest {
     private static final Position H1 = new Position(File.H, Rank.ONE);
 
     @Test
-    void computeMovablePositions_exception() {
+    void computeMovablePositions_illegalMove_empty() {
         final var source = new Position(File.A, Rank.ONE);
         final var target = new Position(File.H, Rank.EIGHT);
 
         final var rook = new Rook(source);
 
-        assertThatThrownBy(() -> rook.computeMovablePositions(target))
-                .isInstanceOf(IllegalArgumentException.class);
+        List<Position> positions = rook.computeMovablePositions(target);
+
+        assertThat(positions).isEmpty();
     }
 
     @Test
