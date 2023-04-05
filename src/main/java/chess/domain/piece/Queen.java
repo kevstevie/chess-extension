@@ -23,4 +23,14 @@ public final class Queen implements Piece {
 
         throw new IllegalArgumentException("Queen은 대각선 또는 직선으로만 이동할 수 있습니다.");
     }
+
+    @Override
+    public boolean isSamePosition(final Position source) {
+        return position.equals(source);
+    }
+
+    @Override
+    public Piece move(final Position target) {
+        return new Queen(target);
+    }
 }

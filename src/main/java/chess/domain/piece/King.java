@@ -21,4 +21,14 @@ public final class King implements Piece {
         }
         throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
     }
+
+    @Override
+    public boolean isSamePosition(final Position source) {
+        return position.equals(source);
+    }
+
+    @Override
+    public Piece move(final Position target) {
+        return new King(target);
+    }
 }

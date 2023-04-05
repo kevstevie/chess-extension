@@ -83,4 +83,23 @@ public final class Pieces {
     public List<Piece> getPieces() {
         return pieces;
     }
+
+    public Piece findPiece(final Position source) {
+        return pieces.stream()
+                .filter(piece -> piece.isSamePosition(source))
+                .findFirst()
+                .orElse(Empty.getInstance());
+    }
+
+    public void move(final Position source, final Position target) {
+        final Piece piece = findPiece(source);
+        final Piece pieceMoved = piece.move(target);
+        pieces.remove(piece);
+        pieces.add(pieceMoved);
+    }
+
+    public void remove(final Position target) {
+        final Piece piece = findPiece(target);
+        pieces.remove(piece);
+    }
 }

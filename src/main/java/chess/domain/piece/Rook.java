@@ -21,4 +21,14 @@ public final class Rook implements Piece {
         }
         throw new IllegalArgumentException("Rook은 대각선으로 이동할 수 없습니다.");
     }
+
+    @Override
+    public boolean isSamePosition(final Position source) {
+        return position.equals(source);
+    }
+
+    @Override
+    public Piece move(final Position target) {
+        return new Rook(target);
+    }
 }

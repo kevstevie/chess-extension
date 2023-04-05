@@ -7,4 +7,8 @@ import java.util.List;
 public interface Piece {
 
     List<Position> computeMovablePositions(final Position target);
+
+    boolean isSamePosition(Position source);
+
+    Piece move(Position target);
 }

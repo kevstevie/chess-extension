@@ -25,6 +25,16 @@ public final class Knight implements Piece {
         throw new IllegalArgumentException("나이트의 이동 규칙에 맞지 않습니다.");
     }
 
+    @Override
+    public boolean isSamePosition(final Position source) {
+        return position.equals(source);
+    }
+
+    @Override
+    public Piece move(final Position target) {
+        return new Knight(target);
+    }
+
     enum Direction {
         NORTH_EAST(1, 2),
         NORTH_WEST(-1, 2),

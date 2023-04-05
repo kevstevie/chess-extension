@@ -19,4 +19,14 @@ public final class Pawn implements Piece {
     public List<Position> computeMovablePositions(final Position target) {
         return status.computeMovablePositions(position, target);
     }
+
+    @Override
+    public boolean isSamePosition(final Position source) {
+        return position.equals(source);
+    }
+
+    @Override
+    public Piece move(final Position target) {
+        return new Pawn(target, status);
+    }
 }

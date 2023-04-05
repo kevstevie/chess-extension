@@ -21,4 +21,14 @@ public final class Bishop implements Piece {
         }
         throw new IllegalArgumentException("Bishop은 대각선이 아니면 이동할 수 없습니다.");
     }
+
+    @Override
+    public boolean isSamePosition(final Position source) {
+        return position.equals(source);
+    }
+
+    @Override
+    public Piece move(final Position target) {
+        return new Bishop(target);
+    }
 }
