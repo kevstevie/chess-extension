@@ -3,11 +3,13 @@ package chess.domain.piece;
 import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Rank;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -58,5 +60,22 @@ class KingTest {
         List<Position> positions = king.computeMovablePositions(target);
 
         assertThat(positions).isEmpty();
+    }
+
+    @Test
+    void computeAllPath_D1() {
+        final var source = new Position(File.D, Rank.ONE);
+
+        final var king = new King(source);
+
+        Set<Position> positions = king.computeAllPath();
+
+        assertThat(positions).containsExactlyInAnyOrder(
+                new Position(File.D, Rank.TWO),
+                new Position(File.E, Rank.ONE),
+                new Position(File.E, Rank.TWO),
+                new Position(File.C, Rank.ONE),
+                new Position(File.C, Rank.TWO)
+        );
     }
 }

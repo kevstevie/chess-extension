@@ -1,11 +1,12 @@
 package chess.domain.game;
 
 import chess.domain.piece.Empty;
-import chess.domain.piece.Piece;
 import chess.domain.player.Player;
 import chess.domain.position.Position;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class ChessGame {
 
@@ -21,21 +22,46 @@ public final class ChessGame {
         this.waitingPlayer = blackPlayer;
     }
 
+    public ChessGame(
+            final Player whitePlayer,
+            final Player blackPlayer,
+            final Player currentTurnPlayer,
+            final Player waitingPlayer
+    ) {
+        this.whitePlayer = whitePlayer;
+        this.blackPlayer = blackPlayer;
+        this.currentTurnPlayer = currentTurnPlayer;
+        this.waitingPlayer = waitingPlayer;
+    }
+
     public static ChessGame ofInitialPieces() {
         return new ChessGame(Player.ofInitialWhitePieces(), Player.ofInitialBlackPieces());
     }
 
     public void move(final Position source, final Position target) {
         validateOwnPiece(target);
-        final Piece piece = currentTurnPlayer.findPiece(source);
+        final var piece = currentTurnPlayer.findPiece(source);
         final List<Position> movablePositions = piece.computeMovablePositions(target);
         validateIsMovable(movablePositions);
         validatePath(movablePositions);
         boolean isTargetEmpty = waitingPlayer.isEmpty(target);
         if (piece.confirmMove(isTargetEmpty, target)) {
             currentTurnPlayer.move(source, target);
-            removeIfOpponentHasPiece(target);
+            removeIfHasPiece(target, waitingPlayer);
             changeTurn();
+        }
+    }
+
+    public void defenseMove(final Position source, final Position target) {
+        final var piece = currentTurnPlayer.findPiece(source);
+        final List<Position> movablePositions = piece.computeMovablePositions(target);
+        if (currentTurnPlayer.hasPieceOnPath(movablePositions)) {
+            return;
+        }
+        boolean isTargetEmpty = waitingPlayer.isEmpty(target);
+        if (piece.confirmMove(isTargetEmpty, target)) {
+            currentTurnPlayer.move(source, target);
+            removeIfHasPiece(target, waitingPlayer);
         }
     }
 
@@ -57,9 +83,9 @@ public final class ChessGame {
         }
     }
 
-    private void removeIfOpponentHasPiece(final Position target) {
-        if (waitingPlayer.findPiece(target) != Empty.getInstance()) {
-            waitingPlayer.remove(target);
+    private void removeIfHasPiece(final Position target, final Player player) {
+        if (player.findPiece(target) != Empty.getInstance()) {
+            player.remove(target);
         }
     }
 
@@ -70,17 +96,48 @@ public final class ChessGame {
     }
 
     public boolean isCheck() {
-        final var kingPosition = waitingPlayer.findKingPosition();
-        final List<List<Position>> allPath = currentTurnPlayer.findAllPath(kingPosition);
+        final var kingPosition = currentTurnPlayer.findKingPosition();
+        final List<List<Position>> allPath = waitingPlayer.findAllPath(kingPosition);
+
         boolean isPathExist = allPath.stream()
                 .anyMatch(path -> path.contains(kingPosition));
         boolean isNotBlockedOwnPiece = allPath.stream()
-                .noneMatch(path -> currentTurnPlayer.hasPieceOnPath(path));
+                .noneMatch(path -> waitingPlayer.hasPieceOnPath(path));
         boolean isNotBlockedOpponentPiece = allPath.stream()
                 .peek(path -> path.remove(kingPosition))
-                .noneMatch(path -> waitingPlayer.hasPieceOnPath(path));
+                .noneMatch(path -> currentTurnPlayer.hasPieceOnPath(path));
 
         return isPathExist && isNotBlockedOwnPiece && isNotBlockedOpponentPiece;
+    }
+
+    public boolean isCheckMate() {
+        Map<Position, Set<Position>> allMoveWithoutTarget = currentTurnPlayer.findAllMoveWithoutTarget();
+
+        loop:
+        for (Map.Entry<Position, Set<Position>> entry : allMoveWithoutTarget.entrySet()) {
+            for (Position destination : entry.getValue()) {
+                final var gameCopied = copyGame();
+                final var currentTurnPlayerCopied = currentTurnPlayer.copyPlayer();
+                if (currentTurnPlayerCopied.findPiece(destination) != Empty.getInstance()) {
+                    continue;
+                }
+                gameCopied.defenseMove(entry.getKey(), destination);
+                boolean check = gameCopied.isCheck();
+                if (!check) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private ChessGame copyGame() {
+        final var whitePlayerCopy = this.whitePlayer.copyPlayer();
+        final var blackPlayerCopy = this.blackPlayer.copyPlayer();
+        final var currentTurnPlayerCopy = this.currentTurnPlayer.copyPlayer();
+        final var waitingPlayerCopy = this.waitingPlayer.copyPlayer();
+        final var chessGame = new ChessGame(whitePlayerCopy, blackPlayerCopy, currentTurnPlayerCopy, waitingPlayerCopy);
+        return chessGame;
     }
 
     public Player getCurrentTurnPlayer() {

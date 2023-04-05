@@ -6,6 +6,7 @@ import chess.domain.position.Rank;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -69,5 +70,31 @@ class RookTest {
                 new Position(File.A, Rank.SIX),
                 new Position(File.A, Rank.SEVEN),
                 new Position(File.A, Rank.EIGHT));
+    }
+
+    @Test
+    void computeAllPath_A3() {
+        final var source = new Position(File.A, Rank.ONE);
+
+        final var rook = new Rook(source);
+
+        Set<Position> positions = rook.computeAllPath();
+
+        assertThat(positions).containsExactlyInAnyOrder(
+                new Position(File.A, Rank.TWO),
+                new Position(File.A, Rank.THREE),
+                new Position(File.A, Rank.FOUR),
+                new Position(File.A, Rank.FIVE),
+                new Position(File.A, Rank.SIX),
+                new Position(File.A, Rank.SEVEN),
+                new Position(File.A, Rank.EIGHT),
+                new Position(File.B, Rank.ONE),
+                new Position(File.C, Rank.ONE),
+                new Position(File.D, Rank.ONE),
+                new Position(File.E, Rank.ONE),
+                new Position(File.F, Rank.ONE),
+                new Position(File.G, Rank.ONE),
+                new Position(File.H, Rank.ONE)
+        );
     }
 }

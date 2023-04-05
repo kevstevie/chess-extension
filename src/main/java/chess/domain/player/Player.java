@@ -5,6 +5,8 @@ import chess.domain.piece.Pieces;
 import chess.domain.position.Position;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class Player {
 
@@ -52,7 +54,15 @@ public final class Player {
         return pieces.findKingPosition();
     }
 
-    public List<List<Position>> findAllPath(final Position kingPosition) {
-        return pieces.findAllPath(kingPosition);
+    public Player copyPlayer() {
+        return new Player(pieces.copyPieces(), color);
+    }
+
+    public List<List<Position>> findAllPath(final Position position) {
+        return pieces.findAllPath(position);
+    }
+
+    public Map<Position, Set<Position>> findAllMoveWithoutTarget() {
+        return pieces.findAllMoveWithoutTarget();
     }
 }

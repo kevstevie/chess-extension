@@ -3,9 +3,7 @@ package chess.domain.piece.pawn;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public final class BlackInitialPawn implements PawnStatus {
 
@@ -21,6 +19,20 @@ public final class BlackInitialPawn implements PawnStatus {
     @Override
     public boolean isPromotable(final Position position) {
         return false;
+    }
+
+    @Override
+    public Set<Position> computeAllPath(final Position position) {
+        Set<Position> allPath = new HashSet<>();
+        for (Direction value : Direction.values()) {
+            if (position.isInBoardAfterMove(value.x, value.y)) {
+                allPath.add(position.move(value.x, value.y));
+            }
+        }
+        if (position.isInBoardAfterMove(-2, 0)) {
+            allPath.add(position.move(-2, 0));
+        }
+        return allPath;
     }
 
     enum Direction {

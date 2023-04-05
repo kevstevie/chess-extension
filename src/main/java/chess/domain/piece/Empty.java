@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 
 import java.util.List;
+import java.util.Set;
 
 public final class Empty implements Piece {
 
@@ -37,6 +38,11 @@ public final class Empty implements Piece {
 
     @Override
     public Position getPosition() {
+        throw new IllegalArgumentException("빈칸은 이동할 수 없습니다.");
+    }
+
+    @Override
+    public Set<Position> computeAllPath() {
         throw new IllegalArgumentException("빈칸은 이동할 수 없습니다.");
     }
 }

@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 
 import java.util.List;
+import java.util.Set;
 
 public interface Piece {
 
@@ -15,4 +16,6 @@ public interface Piece {
     boolean confirmMove(boolean isTargetEmpty, Position target);
 
     Position getPosition();
+
+    Set<Position> computeAllPath();
 }

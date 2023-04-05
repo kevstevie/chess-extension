@@ -6,6 +6,7 @@ import chess.domain.position.Rank;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,5 +76,25 @@ class KnightTest {
         List<Position> positions = knight.computeMovablePositions(target);
 
         assertThat(positions).isEmpty();
+    }
+
+    @Test
+    void computeAllPath_E5() {
+        final var source = new Position(File.E, Rank.FIVE);
+
+        final var knight = new Knight(source);
+
+        Set<Position> positions = knight.computeAllPath();
+
+        assertThat(positions).containsExactlyInAnyOrder(
+                new Position(File.C, Rank.SIX),
+                new Position(File.C, Rank.FOUR),
+                new Position(File.D, Rank.SEVEN),
+                new Position(File.D, Rank.THREE),
+                new Position(File.F, Rank.SEVEN),
+                new Position(File.F, Rank.THREE),
+                new Position(File.G, Rank.SIX),
+                new Position(File.G, Rank.FOUR)
+        );
     }
 }

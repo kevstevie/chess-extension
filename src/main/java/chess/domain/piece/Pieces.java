@@ -9,6 +9,8 @@ import chess.domain.position.Rank;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class Pieces {
@@ -122,6 +124,7 @@ public final class Pieces {
     public List<List<Position>> findAllPath(final Position target) {
         return pieces.stream()
                 .map(piece -> piece.computeMovablePositions(target))
+                .filter(positions -> !positions.isEmpty())
                 .collect(Collectors.toList());
     }
 
@@ -131,5 +134,14 @@ public final class Pieces {
 
     public List<Piece> getPieces() {
         return pieces;
+    }
+
+    public Map<Position, Set<Position>> findAllMoveWithoutTarget() {
+        return pieces.stream()
+                .collect(Collectors.toMap(Piece::getPosition, Piece::computeAllPath));
+    }
+
+    public Pieces copyPieces() {
+        return new Pieces(new ArrayList<>(pieces));
     }
 }

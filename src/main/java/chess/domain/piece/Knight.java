@@ -3,9 +3,7 @@ package chess.domain.piece;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public final class Knight extends NormalPiece {
 
@@ -34,6 +32,17 @@ public final class Knight extends NormalPiece {
     @Override
     public Piece move(final Position target) {
         return new Knight(target);
+    }
+
+    @Override
+    public Set<Position> computeAllPath() {
+        Set<Position> allPath = new HashSet<>();
+        for (Direction value : Direction.values()) {
+            if (position.isInBoardAfterMove(value.x, value.y)) {
+                allPath.add(position.move(value.x, value.y));
+            }
+        }
+        return allPath;
     }
 
     @Override

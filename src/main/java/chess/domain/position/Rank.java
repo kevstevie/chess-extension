@@ -32,4 +32,8 @@ public enum Rank {
     public Rank move(final int rankDirection) {
         return of(this.value + rankDirection);
     }
+
+    public boolean isInBoardAfterMove(final int rank) {
+        return 1 <= rank + this.value && rank + this.value <= 8;
+    }
 }

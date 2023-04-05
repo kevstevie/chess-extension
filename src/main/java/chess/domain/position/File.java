@@ -32,4 +32,8 @@ public enum File {
     public File move(final int fileDirection) {
         return of(this.value + fileDirection);
     }
+
+    public boolean isInBoardAfterMove(final int file) {
+        return 1 <= file + this.value && file + this.value <= 8;
+    }
 }

@@ -43,6 +43,10 @@ public final class Position {
         return this.rank == Rank.of(number);
     }
 
+    public boolean isInBoardAfterMove(final int rank, final int file) {
+        return this.rank.isInBoardAfterMove(rank) && this.file.isInBoardAfterMove(file);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

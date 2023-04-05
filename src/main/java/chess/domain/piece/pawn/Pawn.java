@@ -4,6 +4,7 @@ import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 
 import java.util.List;
+import java.util.Set;
 
 public final class Pawn implements Piece {
 
@@ -39,8 +40,8 @@ public final class Pawn implements Piece {
     }
 
     @Override
-    public Position getPosition() {
-        return position;
+    public Set<Position> computeAllPath() {
+        return status.computeAllPath(position);
     }
 
     public boolean isPromotable() {
@@ -49,5 +50,10 @@ public final class Pawn implements Piece {
 
     public Piece promote(final Piece piece) {
         return piece;
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

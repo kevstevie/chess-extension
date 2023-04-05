@@ -4,7 +4,9 @@ import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class King extends NormalPiece {
 
@@ -36,5 +38,19 @@ public final class King extends NormalPiece {
     @Override
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public Set<Position> computeAllPath() {
+        Set<Position> allPath = new HashSet<>();
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (position.isInBoardAfterMove(i, j)) {
+                    allPath.add(position.move(i, j));
+                }
+            }
+        }
+        allPath.remove(position);
+        return allPath;
     }
 }
