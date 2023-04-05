@@ -11,4 +11,6 @@ public interface Piece {
     boolean isSamePosition(Position source);
 
     Piece move(Position target);
+
+    boolean confirmMove(boolean isTargetEmpty, Position target);
 }

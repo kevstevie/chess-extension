@@ -5,7 +5,7 @@ import chess.domain.position.UnitDirection;
 
 import java.util.List;
 
-public final class Queen implements Piece {
+public final class Queen extends NormalPiece {
 
     private final Position position;
 

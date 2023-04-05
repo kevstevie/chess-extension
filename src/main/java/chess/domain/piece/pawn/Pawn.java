@@ -29,4 +29,12 @@ public final class Pawn implements Piece {
     public Piece move(final Position target) {
         return new Pawn(target, status);
     }
+
+    @Override
+    public boolean confirmMove(final boolean isTargetEmpty, final Position target) {
+        if (position.isSameFile(target)) {
+            return isTargetEmpty;
+        }
+        return !isTargetEmpty;
+    }
 }

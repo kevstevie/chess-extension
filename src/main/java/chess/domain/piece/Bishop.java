@@ -5,7 +5,7 @@ import chess.domain.position.UnitDirection;
 
 import java.util.List;
 
-public final class Bishop implements Piece {
+public final class Bishop extends NormalPiece {
 
     private final Position position;
 

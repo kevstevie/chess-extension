@@ -6,7 +6,7 @@ import chess.domain.position.UnitDirection;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Knight implements Piece {
+public final class Knight extends NormalPiece {
 
     private static final int KNIGHT_MOVE_DISTANCE = 3;
 

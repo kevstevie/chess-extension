@@ -35,6 +35,10 @@ public final class Position {
         return Math.abs(computeRankDistance(target)) <= 1 && Math.abs(computeFileDistance(target)) <= 1;
     }
 
+    public boolean isSameFile(final Position target) {
+        return this.file == target.file;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

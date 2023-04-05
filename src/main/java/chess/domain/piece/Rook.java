@@ -5,7 +5,7 @@ import chess.domain.position.UnitDirection;
 
 import java.util.List;
 
-public final class Rook implements Piece {
+public final class Rook extends NormalPiece {
 
     private final Position position;
 
