@@ -4,6 +4,7 @@ import chess.domain.player.Color;
 import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Rank;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -47,8 +48,11 @@ class ChessGameTest {
         chessGame.changeTurn();
 
         Color color = chessGame.getCurrentTurnPlayer().getColor();
-
-        assertThat(color).isEqualTo(Color.BLACK);
+        Color color2 = chessGame.getWaitingPlayer().getColor();
+        Assertions.assertAll(
+                () -> assertThat(color).isEqualTo(Color.BLACK),
+                () -> assertThat(color2).isEqualTo(Color.WHITE)
+        );
     }
 
     @Test
