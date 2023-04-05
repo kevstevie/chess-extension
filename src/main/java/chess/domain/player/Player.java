@@ -4,6 +4,8 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.Pieces;
 import chess.domain.position.Position;
 
+import java.util.List;
+
 public final class Player {
 
     private final Color color;
@@ -32,5 +34,17 @@ public final class Player {
 
     public void remove(final Position target) {
         pieces.remove(target);
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public boolean hasPieceOnPath(final List<Position> movablePositions) {
+        return pieces.hasPieceOnPath(movablePositions);
+    }
+
+    public boolean isEmpty(final Position target) {
+        return pieces.isEmpty(target);
     }
 }

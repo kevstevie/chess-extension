@@ -102,4 +102,19 @@ public final class Pieces {
         final Piece piece = findPiece(target);
         pieces.remove(piece);
     }
+
+    public boolean hasPieceOnPath(final List<Position> movablePositions) {
+        for (Position movablePosition : movablePositions) {
+            boolean hasPiece = pieces.stream()
+                    .anyMatch(piece -> piece.isSamePosition(movablePosition));
+            if (hasPiece) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEmpty(final Position target) {
+        return findPiece(target) == Empty.getInstance();
+    }
 }

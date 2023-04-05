@@ -60,4 +60,30 @@ class PiecesTest {
 
         assertThat(piece).isSameAs(Empty.getInstance());
     }
+
+    @Test
+    void hasPieceOnPath_true() {
+        final var pieces = Pieces.ofInitialWhitePieces();
+
+        final var hasPieceOnPath = pieces.hasPieceOnPath(
+                List.of(
+                        new Position(File.A, Rank.TWO), new Position(File.A, Rank.FOUR)
+                )
+        );
+
+        assertThat(hasPieceOnPath).isTrue();
+    }
+
+    @Test
+    void hasPieceOnPath_false() {
+        final var pieces = Pieces.ofInitialWhitePieces();
+
+        final var hasPieceOnPath = pieces.hasPieceOnPath(
+                List.of(
+                        new Position(File.A, Rank.SEVEN), new Position(File.A, Rank.THREE)
+                )
+        );
+
+        assertThat(hasPieceOnPath).isFalse();
+    }
 }
