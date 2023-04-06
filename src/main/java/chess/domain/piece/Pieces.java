@@ -42,14 +42,14 @@ public final class Pieces {
     }
 
     private static void initializeBlackPawns() {
-        initialBlackPieces.add(new Pawn(new Position(File.A, Rank.SEVEN), new BlackInitialPawn()));
-        initialBlackPieces.add(new Pawn(new Position(File.B, Rank.SEVEN), new BlackInitialPawn()));
-        initialBlackPieces.add(new Pawn(new Position(File.C, Rank.SEVEN), new BlackInitialPawn()));
-        initialBlackPieces.add(new Pawn(new Position(File.D, Rank.SEVEN), new BlackInitialPawn()));
-        initialBlackPieces.add(new Pawn(new Position(File.E, Rank.SEVEN), new BlackInitialPawn()));
-        initialBlackPieces.add(new Pawn(new Position(File.F, Rank.SEVEN), new BlackInitialPawn()));
-        initialBlackPieces.add(new Pawn(new Position(File.G, Rank.SEVEN), new BlackInitialPawn()));
-        initialBlackPieces.add(new Pawn(new Position(File.H, Rank.SEVEN), new BlackInitialPawn()));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.A, Rank.SEVEN))));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.B, Rank.SEVEN))));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.C, Rank.SEVEN))));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.D, Rank.SEVEN))));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.E, Rank.SEVEN))));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.F, Rank.SEVEN))));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.G, Rank.SEVEN))));
+        initialBlackPieces.add(new Pawn(new BlackInitialPawn(new Position(File.H, Rank.SEVEN))));
     }
 
     private static void initializeBlackPieces() {
@@ -64,14 +64,14 @@ public final class Pieces {
     }
 
     private static void initializeWhitePawns() {
-        initialWhitePieces.add(new Pawn(new Position(File.A, Rank.TWO), new WhiteInitialPawn()));
-        initialWhitePieces.add(new Pawn(new Position(File.B, Rank.TWO), new WhiteInitialPawn()));
-        initialWhitePieces.add(new Pawn(new Position(File.C, Rank.TWO), new WhiteInitialPawn()));
-        initialWhitePieces.add(new Pawn(new Position(File.D, Rank.TWO), new WhiteInitialPawn()));
-        initialWhitePieces.add(new Pawn(new Position(File.E, Rank.TWO), new WhiteInitialPawn()));
-        initialWhitePieces.add(new Pawn(new Position(File.F, Rank.TWO), new WhiteInitialPawn()));
-        initialWhitePieces.add(new Pawn(new Position(File.G, Rank.TWO), new WhiteInitialPawn()));
-        initialWhitePieces.add(new Pawn(new Position(File.H, Rank.TWO), new WhiteInitialPawn()));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.A, Rank.TWO))));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.B, Rank.TWO))));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.C, Rank.TWO))));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.D, Rank.TWO))));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.E, Rank.TWO))));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.F, Rank.TWO))));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.G, Rank.TWO))));
+        initialWhitePieces.add(new Pawn(new WhiteInitialPawn(new Position(File.H, Rank.TWO))));
     }
 
     private static void initializeWhitePieces() {

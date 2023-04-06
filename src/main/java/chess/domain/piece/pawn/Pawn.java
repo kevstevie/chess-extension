@@ -8,32 +8,30 @@ import java.util.Set;
 
 public final class Pawn implements Piece {
 
-    private final Position position;
     private final PawnStatus status;
 
-    public Pawn(final Position position, final PawnStatus status) {
-        this.position = position;
+    public Pawn(final PawnStatus status) {
         this.status = status;
     }
 
     @Override
     public List<Position> computeMovablePositions(final Position target) {
-        return status.computeMovablePositions(position, target);
+        return status.computeMovablePositions(target);
     }
 
     @Override
     public boolean isSamePosition(final Position source) {
-        return position.equals(source);
+        return getPosition().equals(source);
     }
 
     @Override
     public Piece move(final Position target) {
-        return new Pawn(target, status);
+        return new Pawn(status.move(target));
     }
 
     @Override
     public boolean confirmMove(final boolean isTargetEmpty, final Position target) {
-        if (position.isSameFile(target)) {
+        if (getPosition().isSameFile(target)) {
             return isTargetEmpty;
         }
         return !isTargetEmpty;
@@ -41,11 +39,11 @@ public final class Pawn implements Piece {
 
     @Override
     public Set<Position> computeAllPath() {
-        return status.computeAllPath(position);
+        return status.computeAllPath();
     }
 
     public boolean isPromotable() {
-        return status.isPromotable(position);
+        return status.isPromotable();
     }
 
     public Piece promote(final Piece piece) {
@@ -54,6 +52,6 @@ public final class Pawn implements Piece {
 
     @Override
     public Position getPosition() {
-        return position;
+        return status.getPosition();
     }
 }

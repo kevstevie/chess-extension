@@ -3,59 +3,54 @@ package chess.domain.piece.pawn;
 import chess.domain.position.Position;
 import chess.domain.position.UnitDirection;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public final class WhitePawn implements PawnStatus {
+
+    private final Position position;
+
+    public WhitePawn(final Position position) {
+        this.position = position;
+    }
 
     private static final int FORWARD_ONE_SQUARE = 1;
     private static final int PROMOTION_RANK = 8;
 
     @Override
-    public List<Position> computeMovablePositions(final Position position, final Position target) {
+    public List<Position> computeMovablePositions(final Position target) {
         final var unitDirection = UnitDirection.of(position, target);
-        if (Direction.isMovable(unitDirection) && position.computeRankDistance(target) == FORWARD_ONE_SQUARE) {
+        if (WhitePawnDirection.isMovable(unitDirection) && position.computeRankDistance(target) == FORWARD_ONE_SQUARE) {
             return unitDirection.computePath(position, target);
         }
         return new ArrayList<>();
     }
 
     @Override
-    public boolean isPromotable(final Position position) {
-        return position.isSameRank(PROMOTION_RANK);
-    }
-
-    @Override
-    public Set<Position> computeAllPath(final Position position) {
+    public Set<Position> computeAllPath() {
         Set<Position> allPath = new HashSet<>();
-        for (Direction value : Direction.values()) {
-            if (position.isInBoardAfterMove(value.x, value.y)) {
-                allPath.add(position.move(value.x, value.y));
+        for (WhitePawnDirection value : WhitePawnDirection.values()) {
+            if (position.isInBoardAfterMove(value.x(), value.y())) {
+                allPath.add(position.move(value.x(), value.y()));
             }
         }
         return allPath;
     }
 
-    enum Direction {
-        SOUTH(1, 0),
-        SOUTH_EAST(1, 1),
-        SOUTH_WEST(1, -1);
+    @Override
+    public PawnStatus move(final Position target) {
+        return new WhitePawn(target);
+    }
 
-        private final int x;
-        private final int y;
+    @Override
+    public boolean isPromotable() {
+        return position.isSameRank(PROMOTION_RANK);
+    }
 
-        Direction(final int x, final int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public static boolean isMovable(final UnitDirection unitDirection) {
-            return Arrays.stream(Direction.values())
-                    .anyMatch(
-                            direction -> (
-                                    unitDirection.isSameRankValue(direction.x) &&
-                                            unitDirection.isSameFileValue(direction.y)
-                            )
-                    );
-        }
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

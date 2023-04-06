@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 public interface PawnStatus {
-    List<Position> computeMovablePositions(Position position, Position target);
+    List<Position> computeMovablePositions(final Position target);
 
-    boolean isPromotable(Position position);
+    boolean isPromotable();
 
-    Set<Position> computeAllPath(Position position);
+    Set<Position> computeAllPath();
+
+    PawnStatus move(final Position target);
+
+    Position getPosition();
 }

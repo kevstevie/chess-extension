@@ -16,9 +16,9 @@ class BlackPawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.THREE);
 
-        final var pawn = new BlackPawn();
+        final var pawn = new BlackPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).containsExactlyInAnyOrder(
                 new Position(File.A, Rank.THREE)
@@ -30,9 +30,9 @@ class BlackPawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.B, Rank.THREE);
 
-        final var pawn = new BlackPawn();
+        final var pawn = new BlackPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).containsExactlyInAnyOrder(
                 new Position(File.B, Rank.THREE)
@@ -44,9 +44,9 @@ class BlackPawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.TWO);
 
-        final var pawn = new BlackPawn();
+        final var pawn = new BlackPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).isEmpty();
     }

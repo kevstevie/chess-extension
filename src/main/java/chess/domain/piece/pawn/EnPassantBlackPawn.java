@@ -8,18 +8,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class BlackInitialPawn implements PawnStatus {
+public final class EnPassantBlackPawn implements PawnStatus {
+
+    private static final int FORWARD_ONE_SQUARE = 1;
 
     private final Position position;
 
-    public BlackInitialPawn(final Position position) {
+    public EnPassantBlackPawn(final Position position) {
         this.position = position;
     }
 
     @Override
     public List<Position> computeMovablePositions(final Position target) {
         final var unitDirection = UnitDirection.of(position, target);
-        if (BlackPawnDirection.isMovable(unitDirection) && position.computeDistance(target) <= 2) {
+        if (BlackPawnDirection.isMovable(unitDirection) && position.computeRankDistance(target) == FORWARD_ONE_SQUARE) {
             return unitDirection.computePath(position, target);
         }
         return new ArrayList<>();
@@ -38,17 +40,11 @@ public final class BlackInitialPawn implements PawnStatus {
                 allPath.add(position.move(value.x(), value.y()));
             }
         }
-        if (position.isInBoardAfterMove(-2, 0)) {
-            allPath.add(position.move(-2, 0));
-        }
         return allPath;
     }
 
     @Override
     public PawnStatus move(final Position target) {
-        if (position.computeRankDistance(target) == 2) {
-            return new EnPassantBlackPawn(target);
-        }
         return new BlackPawn(target);
     }
 

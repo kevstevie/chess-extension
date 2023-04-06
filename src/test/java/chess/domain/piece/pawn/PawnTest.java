@@ -15,7 +15,7 @@ class PawnTest {
         final var source = new Position(File.A, Rank.THREE);
         final var target = new Position(File.A, Rank.FOUR);
 
-        final var pawn = new Pawn(source, new WhitePawn());
+        final var pawn = new Pawn(new WhitePawn(source));
         pawn.computeMovablePositions(target);
 
         boolean result = pawn.confirmMove(true, target);
@@ -28,7 +28,7 @@ class PawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.SIX);
 
-        final var pawn = new Pawn(source, new WhiteInitialPawn());
+        final var pawn = new Pawn(new WhiteInitialPawn(source));
         pawn.computeMovablePositions(target);
 
         boolean result = pawn.confirmMove(true, target);
@@ -41,7 +41,7 @@ class PawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.B, Rank.FIVE);
 
-        final var pawn = new Pawn(source, new WhitePawn());
+        final var pawn = new Pawn(new WhitePawn(source));
         pawn.computeMovablePositions(target);
 
         boolean result = pawn.confirmMove(false, target);
@@ -54,7 +54,7 @@ class PawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.FIVE);
 
-        final var pawn = new Pawn(source, new WhitePawn());
+        final var pawn = new Pawn(new WhitePawn(source));
         pawn.computeMovablePositions(target);
 
         boolean result = pawn.confirmMove(false, target);
@@ -66,7 +66,7 @@ class PawnTest {
     void isPromotable_black_false() {
         final var source = new Position(File.A, Rank.ONE);
 
-        final var pawn = new Pawn(source, new BlackInitialPawn());
+        final var pawn = new Pawn(new BlackInitialPawn(source));
 
         boolean result = pawn.isPromotable();
 
@@ -77,7 +77,7 @@ class PawnTest {
     void isPromotable_black_true() {
         final var source = new Position(File.A, Rank.ONE);
 
-        final var pawn = new Pawn(source, new BlackPawn());
+        final var pawn = new Pawn(new BlackPawn(source));
 
         boolean result = pawn.isPromotable();
 
@@ -88,7 +88,7 @@ class PawnTest {
     void isPromotable_white_true() {
         final var source = new Position(File.A, Rank.EIGHT);
 
-        final var pawn = new Pawn(source, new WhitePawn());
+        final var pawn = new Pawn(new WhitePawn(source));
 
         boolean result = pawn.isPromotable();
 
@@ -99,7 +99,7 @@ class PawnTest {
     void isPromotable_white_false() {
         final var source = new Position(File.A, Rank.SEVEN);
 
-        final var pawn = new Pawn(source, new WhitePawn());
+        final var pawn = new Pawn(new WhitePawn(source));
 
         boolean result = pawn.isPromotable();
 

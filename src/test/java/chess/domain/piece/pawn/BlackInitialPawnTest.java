@@ -16,9 +16,9 @@ class BlackInitialPawnTest {
         final var source = new Position(File.A, Rank.TWO);
         final var target = new Position(File.B, Rank.ONE);
 
-        final var pawn = new BlackInitialPawn();
+        final var pawn = new BlackInitialPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).containsExactlyInAnyOrder(
                 new Position(File.B, Rank.ONE)
@@ -30,9 +30,9 @@ class BlackInitialPawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.TWO);
 
-        final var pawn = new BlackInitialPawn();
+        final var pawn = new BlackInitialPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).containsExactlyInAnyOrder(
                 new Position(File.A, Rank.TWO),
@@ -45,9 +45,9 @@ class BlackInitialPawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.THREE);
 
-        final var pawn = new BlackInitialPawn();
+        final var pawn = new BlackInitialPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).containsExactlyInAnyOrder(
                 new Position(File.A, Rank.THREE)
@@ -59,9 +59,9 @@ class BlackInitialPawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.A, Rank.FIVE);
 
-        final var pawn = new BlackInitialPawn();
+        final var pawn = new BlackInitialPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).isEmpty();
     }
@@ -71,9 +71,9 @@ class BlackInitialPawnTest {
         final var source = new Position(File.A, Rank.FOUR);
         final var target = new Position(File.B, Rank.FIVE);
 
-        final var pawn = new BlackInitialPawn();
+        final var pawn = new BlackInitialPawn(source);
 
-        List<Position> positions = pawn.computeMovablePositions(source, target);
+        List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).isEmpty();
     }
