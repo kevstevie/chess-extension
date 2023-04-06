@@ -1,6 +1,5 @@
-package chess.domain.piece;
+package chess.domain.piece.castle;
 
-import chess.domain.piece.castle.King;
 import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Rank;
@@ -16,6 +15,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class KingTest {
+
+    private final boolean canCastle = true;
 
     static Stream<Arguments> kingParameters() {
         return Stream.of(
@@ -33,7 +34,7 @@ class KingTest {
     @ParameterizedTest
     @MethodSource("kingParameters")
     void computeMovablePositions(final Position source, final Position target) {
-        final var king = new King(source);
+        final var king = new King(source, canCastle);
 
         List<Position> positions = king.computeMovablePositions(target);
 
@@ -56,7 +57,7 @@ class KingTest {
     @ParameterizedTest
     @MethodSource("kingNotMovable")
     void computeMovablePositions_illegal_empty(final Position source, final Position target) {
-        final var king = new King(source);
+        final var king = new King(source, canCastle);
 
         List<Position> positions = king.computeMovablePositions(target);
 
@@ -67,7 +68,7 @@ class KingTest {
     void computeAllPath_D1() {
         final var source = new Position(File.D, Rank.ONE);
 
-        final var king = new King(source);
+        final var king = new King(source, canCastle);
 
         Set<Position> positions = king.computeAllPath();
 

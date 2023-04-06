@@ -53,14 +53,14 @@ public final class Pieces {
     }
 
     private static void initializeBlackPieces() {
-        initialBlackPieces.add(new Rook(new Position(File.A, Rank.EIGHT)));
+        initialBlackPieces.add(new Rook(new Position(File.A, Rank.EIGHT), true));
         initialBlackPieces.add(new Knight(new Position(File.B, Rank.EIGHT)));
         initialBlackPieces.add(new Bishop(new Position(File.C, Rank.EIGHT)));
         initialBlackPieces.add(new Queen(new Position(File.D, Rank.EIGHT)));
-        initialBlackPieces.add(new King(new Position(File.E, Rank.EIGHT)));
+        initialBlackPieces.add(new King(new Position(File.E, Rank.EIGHT), true));
         initialBlackPieces.add(new Bishop(new Position(File.F, Rank.EIGHT)));
         initialBlackPieces.add(new Knight(new Position(File.G, Rank.EIGHT)));
-        initialBlackPieces.add(new Rook(new Position(File.H, Rank.EIGHT)));
+        initialBlackPieces.add(new Rook(new Position(File.H, Rank.EIGHT), true));
     }
 
     private static void initializeWhitePawns() {
@@ -75,14 +75,14 @@ public final class Pieces {
     }
 
     private static void initializeWhitePieces() {
-        initialWhitePieces.add(new Rook(new Position(File.A, Rank.ONE)));
+        initialWhitePieces.add(new Rook(new Position(File.A, Rank.ONE), true));
         initialWhitePieces.add(new Knight(new Position(File.B, Rank.ONE)));
         initialWhitePieces.add(new Bishop(new Position(File.C, Rank.ONE)));
         initialWhitePieces.add(new Queen(new Position(File.D, Rank.ONE)));
-        initialWhitePieces.add(new King(new Position(File.E, Rank.ONE)));
+        initialWhitePieces.add(new King(new Position(File.E, Rank.ONE), true));
         initialWhitePieces.add(new Bishop(new Position(File.F, Rank.ONE)));
         initialWhitePieces.add(new Knight(new Position(File.G, Rank.ONE)));
-        initialWhitePieces.add(new Rook(new Position(File.H, Rank.ONE)));
+        initialWhitePieces.add(new Rook(new Position(File.H, Rank.ONE), true));
     }
 
     public Piece findPiece(final Position source) {

@@ -37,12 +37,17 @@ public final class Empty implements Piece {
     }
 
     @Override
-    public Position getPosition() {
+    public Set<Position> computeAllPath() {
         throw new IllegalArgumentException("빈칸은 이동할 수 없습니다.");
     }
 
     @Override
-    public Set<Position> computeAllPath() {
+    public boolean canCastle() {
+        throw new IllegalArgumentException("빈칸은 이동할 수 없습니다.");
+    }
+
+    @Override
+    public Position getPosition() {
         throw new IllegalArgumentException("빈칸은 이동할 수 없습니다.");
     }
 }

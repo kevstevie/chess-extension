@@ -1,6 +1,5 @@
-package chess.domain.piece;
+package chess.domain.piece.castle;
 
-import chess.domain.piece.castle.Rook;
 import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Rank;
@@ -12,6 +11,8 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RookTest {
+
+    private final boolean canCastle = true;
 
     private static final Position B1 = new Position(File.B, Rank.ONE);
     private static final Position C1 = new Position(File.C, Rank.ONE);
@@ -26,7 +27,7 @@ class RookTest {
         final var source = new Position(File.A, Rank.ONE);
         final var target = new Position(File.H, Rank.EIGHT);
 
-        final var rook = new Rook(source);
+        final var rook = new Rook(source, canCastle);
 
         List<Position> positions = rook.computeMovablePositions(target);
 
@@ -38,7 +39,7 @@ class RookTest {
         final var source = new Position(File.A, Rank.ONE);
         final var target = new Position(File.H, Rank.ONE);
 
-        final var rook = new Rook(source);
+        final var rook = new Rook(source, canCastle);
 
         List<Position> positions =
                 rook.computeMovablePositions(target);
@@ -58,7 +59,7 @@ class RookTest {
         final var source = new Position(File.A, Rank.ONE);
         final var target = new Position(File.A, Rank.EIGHT);
 
-        final var rook = new Rook(source);
+        final var rook = new Rook(source, canCastle);
 
         List<Position> positions =
                 rook.computeMovablePositions(target);
@@ -77,7 +78,7 @@ class RookTest {
     void computeAllPath_A3() {
         final var source = new Position(File.A, Rank.ONE);
 
-        final var rook = new Rook(source);
+        final var rook = new Rook(source, canCastle);
 
         Set<Position> positions = rook.computeAllPath();
 

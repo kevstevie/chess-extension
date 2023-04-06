@@ -113,7 +113,6 @@ public final class ChessGame {
     public boolean isCheckMate() {
         Map<Position, Set<Position>> allMoveWithoutTarget = currentTurnPlayer.findAllMoveWithoutTarget();
 
-        loop:
         for (Map.Entry<Position, Set<Position>> entry : allMoveWithoutTarget.entrySet()) {
             for (Position destination : entry.getValue()) {
                 final var gameCopied = copyGame();
@@ -138,6 +137,22 @@ public final class ChessGame {
         final var waitingPlayerCopy = this.waitingPlayer.copyPlayer();
         final var chessGame = new ChessGame(whitePlayerCopy, blackPlayerCopy, currentTurnPlayerCopy, waitingPlayerCopy);
         return chessGame;
+    }
+
+    public void castleKingSide() {
+        boolean checkKingCastlePath = currentTurnPlayer.checkKingCastlePath(waitingPlayer);
+        if (checkKingCastlePath) {
+            currentTurnPlayer.castleKingSide();
+            changeTurn();
+        }
+    }
+
+    public void castleQueenSide() {
+        boolean checkQueenCastlePath = currentTurnPlayer.checkQueenCastlePath(waitingPlayer);
+        if (checkQueenCastlePath) {
+            currentTurnPlayer.castleQueenSide();
+            changeTurn();
+        }
     }
 
     public Player getCurrentTurnPlayer() {

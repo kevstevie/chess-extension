@@ -13,9 +13,11 @@ import java.util.Set;
 public final class King extends NormalPiece {
 
     private final Position position;
+    private final boolean canCastle;
 
-    public King(final Position position) {
+    public King(final Position position, final boolean canCastle) {
         this.position = position;
+        this.canCastle = canCastle;
     }
 
     @Override
@@ -34,7 +36,7 @@ public final class King extends NormalPiece {
 
     @Override
     public Piece move(final Position target) {
-        return new King(target);
+        return new King(target, false);
     }
 
     @Override
@@ -54,5 +56,10 @@ public final class King extends NormalPiece {
         }
         allPath.remove(position);
         return allPath;
+    }
+
+    @Override
+    public boolean canCastle() {
+        return canCastle;
     }
 }

@@ -22,6 +22,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class ChessGameTest {
 
+    private final boolean canCastle = true;
+
     @Test
     void move() {
         final var chessGame = ChessGame.ofInitialPieces();
@@ -77,10 +79,10 @@ class ChessGameTest {
 
     @Test
     void isCheck_true() {
-        final var whitePieces = new Pieces(List.of(new Rook(new Position(File.A, Rank.ONE))));
+        final var whitePieces = new Pieces(List.of(new Rook(new Position(File.A, Rank.ONE), canCastle)));
         final var white = new Player(whitePieces, Color.WHITE);
 
-        final var blackPieces = new Pieces(List.of(new King(new Position(File.A, Rank.TWO))));
+        final var blackPieces = new Pieces(List.of(new King(new Position(File.A, Rank.TWO), canCastle)));
         final var black = new Player(blackPieces, Color.BLACK);
 
         final var chessGame = new ChessGame(white, black, black, white);
@@ -107,10 +109,10 @@ class ChessGameTest {
 
     @Test
     void isCheck_false() {
-        final var whitePieces = new Pieces(List.of(new Rook(new Position(File.B, Rank.ONE))));
+        final var whitePieces = new Pieces(List.of(new Rook(new Position(File.B, Rank.ONE), canCastle)));
         final var white = new Player(whitePieces, Color.WHITE);
 
-        final var blackPieces = new Pieces(List.of(new King(new Position(File.A, Rank.THREE))));
+        final var blackPieces = new Pieces(List.of(new King(new Position(File.A, Rank.THREE), canCastle)));
         final var black = new Player(blackPieces, Color.BLACK);
 
         final var chessGame = new ChessGame(white, black, black, white);
@@ -124,11 +126,11 @@ class ChessGameTest {
     void isCheckMate_true() {
         List<Piece> whitePieces = new ArrayList<>();
         whitePieces.add(new Queen(new Position(File.A, Rank.TWO)));
-        whitePieces.add(new Rook(new Position(File.A, Rank.ONE)));
+        whitePieces.add(new Rook(new Position(File.A, Rank.ONE), canCastle));
         final var white = new Player(new Pieces(whitePieces), Color.WHITE);
 
         List<Piece> blackPieces = new ArrayList<>();
-        blackPieces.add(new King(new Position(File.C, Rank.ONE)));
+        blackPieces.add(new King(new Position(File.C, Rank.ONE), canCastle));
         final var black = new Player(new Pieces(blackPieces), Color.BLACK);
 
         final var chessGame = new ChessGame(white, black, black, white);
@@ -142,11 +144,11 @@ class ChessGameTest {
     void isCheckMate_false() {
         List<Piece> whitePieces = new ArrayList<>();
         whitePieces.add(new Queen(new Position(File.A, Rank.TWO)));
-        whitePieces.add(new Rook(new Position(File.A, Rank.ONE)));
+        whitePieces.add(new Rook(new Position(File.A, Rank.ONE), canCastle));
         final var white = new Player(new Pieces(whitePieces), Color.WHITE);
 
         List<Piece> blackPieces = new ArrayList<>();
-        blackPieces.add(new King(new Position(File.H, Rank.TWO)));
+        blackPieces.add(new King(new Position(File.H, Rank.TWO), canCastle));
         final var black = new Player(new Pieces(blackPieces), Color.BLACK);
 
         final var chessGame = new ChessGame(white, black, black, white);
@@ -192,12 +194,12 @@ class ChessGameTest {
     void isCheckMate_false2() {
         List<Piece> whitePieces = new ArrayList<>();
         whitePieces.add(new Queen(new Position(File.A, Rank.TWO)));
-        whitePieces.add(new Rook(new Position(File.A, Rank.ONE)));
+        whitePieces.add(new Rook(new Position(File.A, Rank.ONE), canCastle));
         final var white = new Player(new Pieces(whitePieces), Color.WHITE);
 
         List<Piece> blackPieces = new ArrayList<>();
-        blackPieces.add(new King(new Position(File.H, Rank.ONE)));
-        blackPieces.add(new Rook(new Position(File.G, Rank.EIGHT)));
+        blackPieces.add(new King(new Position(File.H, Rank.ONE), canCastle));
+        blackPieces.add(new Rook(new Position(File.G, Rank.EIGHT), canCastle));
         blackPieces.add(new Knight(new Position(File.G, Rank.TWO)));
         final var black = new Player(new Pieces(blackPieces), Color.BLACK);
 
@@ -211,12 +213,12 @@ class ChessGameTest {
     @Test
     void isCheckMate_capture_false() {
         List<Piece> whitePieces = new ArrayList<>();
-        whitePieces.add(new Rook(new Position(File.B, Rank.TWO)));
-        whitePieces.add(new Rook(new Position(File.A, Rank.ONE)));
+        whitePieces.add(new Rook(new Position(File.B, Rank.TWO), canCastle));
+        whitePieces.add(new Rook(new Position(File.A, Rank.ONE), canCastle));
         final var white = new Player(new Pieces(whitePieces), Color.WHITE);
 
         List<Piece> blackPieces = new ArrayList<>();
-        blackPieces.add(new King(new Position(File.B, Rank.ONE)));
+        blackPieces.add(new King(new Position(File.B, Rank.ONE), canCastle));
         final var black = new Player(new Pieces(blackPieces), Color.BLACK);
 
         final var chessGame = new ChessGame(white, black, black, white);

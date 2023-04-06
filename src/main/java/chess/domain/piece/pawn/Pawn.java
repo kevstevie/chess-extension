@@ -51,6 +51,11 @@ public final class Pawn implements Piece {
     }
 
     @Override
+    public boolean canCastle() {
+        return false;
+    }
+
+    @Override
     public Position getPosition() {
         return status.getPosition();
     }

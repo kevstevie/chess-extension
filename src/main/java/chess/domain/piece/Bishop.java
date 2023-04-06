@@ -50,6 +50,11 @@ public final class Bishop extends NormalPiece {
     }
 
     @Override
+    public boolean canCastle() {
+        return false;
+    }
+
+    @Override
     public Position getPosition() {
         return position;
     }

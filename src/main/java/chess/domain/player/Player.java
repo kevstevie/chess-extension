@@ -2,13 +2,34 @@ package chess.domain.player;
 
 import chess.domain.piece.Piece;
 import chess.domain.piece.Pieces;
+import chess.domain.position.File;
 import chess.domain.position.Position;
+import chess.domain.position.Rank;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public final class Player {
+
+    private final List<Position> WHITE_KING_CASTLE_PATH = List.of(
+            new Position(File.F, Rank.ONE),
+            new Position(File.G, Rank.ONE)
+    );
+    private final List<Position> BLACK_KING_CASTLE_PATH = List.of(
+            new Position(File.F, Rank.EIGHT),
+            new Position(File.G, Rank.EIGHT)
+    );
+    private final List<Position> WHITE_QUEEN_CASTLE_PATH = List.of(
+            new Position(File.D, Rank.ONE),
+            new Position(File.C, Rank.ONE),
+            new Position(File.B, Rank.ONE)
+    );
+    private final List<Position> BLACK_QUEEN_CASTLE_PATH = List.of(
+            new Position(File.D, Rank.EIGHT),
+            new Position(File.C, Rank.EIGHT),
+            new Position(File.B, Rank.EIGHT)
+    );
 
     private final Color color;
     private final Pieces pieces;
@@ -64,5 +85,55 @@ public final class Player {
 
     public Map<Position, Set<Position>> findAllMoveWithoutTarget() {
         return pieces.findAllMoveWithoutTarget();
+    }
+
+    public boolean checkKingCastlePath(final Player waitingPlayer) {
+        if (color == Color.WHITE) {
+            return !this.hasPieceOnPath(WHITE_KING_CASTLE_PATH) &&
+                    !waitingPlayer.hasPieceOnPath(WHITE_KING_CASTLE_PATH);
+        }
+        return !this.hasPieceOnPath(BLACK_KING_CASTLE_PATH) &&
+                !waitingPlayer.hasPieceOnPath(BLACK_KING_CASTLE_PATH);
+    }
+
+    public boolean checkQueenCastlePath(final Player waitingPlayer) {
+        if (color == Color.WHITE) {
+            return !this.hasPieceOnPath(WHITE_QUEEN_CASTLE_PATH) &&
+                    !waitingPlayer.hasPieceOnPath(WHITE_QUEEN_CASTLE_PATH);
+        }
+        return !this.hasPieceOnPath(BLACK_QUEEN_CASTLE_PATH) &&
+                !waitingPlayer.hasPieceOnPath(BLACK_QUEEN_CASTLE_PATH);
+    }
+
+    public void castleKingSide() {
+        if (color == Color.WHITE) {
+            if (pieces.findPiece(new Position(File.E, Rank.ONE)).canCastle() &&
+                    pieces.findPiece(new Position(File.H, Rank.ONE)).canCastle()) {
+                pieces.move(new Position(File.E, Rank.ONE), new Position(File.G, Rank.ONE));
+                pieces.move(new Position(File.H, Rank.ONE), new Position(File.F, Rank.ONE));
+                return;
+            }
+        }
+        if (pieces.findPiece(new Position(File.E, Rank.EIGHT)).canCastle() &&
+                pieces.findPiece(new Position(File.H, Rank.EIGHT)).canCastle()) {
+            pieces.move(new Position(File.E, Rank.EIGHT), new Position(File.G, Rank.EIGHT));
+            pieces.move(new Position(File.H, Rank.EIGHT), new Position(File.F, Rank.EIGHT));
+        }
+    }
+
+    public void castleQueenSide() {
+        if (color == Color.WHITE) {
+            if (pieces.findPiece(new Position(File.E, Rank.ONE)).canCastle() &&
+                    pieces.findPiece(new Position(File.A, Rank.ONE)).canCastle()) {
+                pieces.move(new Position(File.E, Rank.ONE), new Position(File.C, Rank.ONE));
+                pieces.move(new Position(File.A, Rank.ONE), new Position(File.D, Rank.ONE));
+                return;
+            }
+        }
+        if (pieces.findPiece(new Position(File.E, Rank.EIGHT)).canCastle() &&
+                pieces.findPiece(new Position(File.A, Rank.EIGHT)).canCastle()) {
+            pieces.move(new Position(File.E, Rank.EIGHT), new Position(File.C, Rank.EIGHT));
+            pieces.move(new Position(File.A, Rank.EIGHT), new Position(File.D, Rank.EIGHT));
+        }
     }
 }

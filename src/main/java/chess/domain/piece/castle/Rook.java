@@ -13,9 +13,11 @@ import java.util.Set;
 public final class Rook extends NormalPiece {
 
     private final Position position;
+    private final boolean canCastle;
 
-    public Rook(final Position position) {
+    public Rook(final Position position, final boolean canCastle) {
         this.position = position;
+        this.canCastle = canCastle;
     }
 
     @Override
@@ -34,7 +36,7 @@ public final class Rook extends NormalPiece {
 
     @Override
     public Piece move(final Position target) {
-        return new Rook(target);
+        return new Rook(target, false);
     }
 
     @Override
@@ -55,5 +57,10 @@ public final class Rook extends NormalPiece {
     @Override
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public boolean canCastle() {
+        return canCastle;
     }
 }

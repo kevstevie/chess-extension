@@ -18,4 +18,6 @@ public interface Piece {
     Position getPosition();
 
     Set<Position> computeAllPath();
+
+    boolean canCastle();
 }

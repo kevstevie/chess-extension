@@ -2,6 +2,8 @@ package chess.domain.player;
 
 import chess.domain.piece.Empty;
 import chess.domain.piece.Piece;
+import chess.domain.piece.castle.King;
+import chess.domain.piece.castle.Rook;
 import chess.domain.piece.pawn.Pawn;
 import chess.domain.position.File;
 import chess.domain.position.Position;
@@ -9,6 +11,7 @@ import chess.domain.position.Rank;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class PlayerTest {
@@ -53,5 +56,39 @@ class PlayerTest {
         Piece piece = player.findPiece(target);
 
         assertThat(piece).isSameAs(Empty.getInstance());
+    }
+
+    @Test
+    void kingCastle_white() {
+        final var player = Player.ofInitialWhitePieces();
+        player.move(new Position(File.E, Rank.TWO), new Position(File.E, Rank.FOUR));
+        player.move(new Position(File.G, Rank.ONE), new Position(File.F, Rank.THREE));
+        player.move(new Position(File.F, Rank.ONE), new Position(File.E, Rank.TWO));
+        player.castleKingSide();
+
+        Piece piece = player.findPiece(new Position(File.G, Rank.ONE));
+        Piece piece1 = player.findPiece(new Position(File.F, Rank.ONE));
+
+        assertAll(
+                () -> assertThat(piece).isInstanceOf(King.class),
+                () -> assertThat(piece1).isInstanceOf(Rook.class)
+        );
+    }
+
+    @Test
+    void queenCastle_white() {
+        final var player = Player.ofInitialWhitePieces();
+        player.remove(new Position(File.D, Rank.ONE));
+        player.remove(new Position(File.C, Rank.ONE));
+        player.remove(new Position(File.B, Rank.ONE));
+        player.castleQueenSide();
+
+        Piece piece = player.findPiece(new Position(File.C, Rank.ONE));
+        Piece piece1 = player.findPiece(new Position(File.D, Rank.ONE));
+
+        assertAll(
+                () -> assertThat(piece).isInstanceOf(King.class),
+                () -> assertThat(piece1).isInstanceOf(Rook.class)
+        );
     }
 }
