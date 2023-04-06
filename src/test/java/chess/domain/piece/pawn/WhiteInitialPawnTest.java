@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class WhiteInitialPawnTest {
 
@@ -76,5 +76,29 @@ class WhiteInitialPawnTest {
         List<Position> positions = pawn.computeMovablePositions(target);
 
         assertThat(positions).isEmpty();
+    }
+
+    @Test
+    void move_forwardTwo_enPassant() {
+        final var source = new Position(File.A, Rank.TWO);
+        final var target = new Position(File.A, Rank.FOUR);
+
+        final var pawn = new WhiteInitialPawn(source);
+
+        PawnStatus move = pawn.move(target);
+
+        assertThat(move).isInstanceOf(EnPassantWhitePawn.class);
+    }
+
+    @Test
+    void move_forward_whitePawn() {
+        final var source = new Position(File.A, Rank.TWO);
+        final var target = new Position(File.A, Rank.THREE);
+
+        final var pawn = new WhiteInitialPawn(source);
+
+        PawnStatus move = pawn.move(target);
+
+        assertThat(move).isInstanceOf(WhitePawn.class);
     }
 }

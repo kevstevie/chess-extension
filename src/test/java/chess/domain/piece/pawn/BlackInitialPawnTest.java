@@ -78,4 +78,27 @@ class BlackInitialPawnTest {
         assertThat(positions).isEmpty();
     }
 
+    @Test
+    void move_forwardTwo_enPassant() {
+        final var source = new Position(File.A, Rank.FOUR);
+        final var target = new Position(File.A, Rank.TWO);
+
+        final var pawn = new BlackInitialPawn(source);
+
+        PawnStatus move = pawn.move(target);
+
+        assertThat(move).isInstanceOf(EnPassantBlackPawn.class);
+    }
+
+    @Test
+    void move_forwardOne_blackPawn() {
+        final var source = new Position(File.A, Rank.FOUR);
+        final var target = new Position(File.A, Rank.THREE);
+
+        final var pawn = new BlackInitialPawn(source);
+
+        PawnStatus move = pawn.move(target);
+
+        assertThat(move).isInstanceOf(BlackPawn.class);
+    }
 }

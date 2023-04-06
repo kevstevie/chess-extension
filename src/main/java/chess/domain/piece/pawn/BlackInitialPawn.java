@@ -46,7 +46,7 @@ public final class BlackInitialPawn implements PawnStatus {
 
     @Override
     public PawnStatus move(final Position target) {
-        if (position.computeRankDistance(target) == 2) {
+        if (position.computeRankDistance(target) == -2) {
             return new EnPassantBlackPawn(target);
         }
         return new BlackPawn(target);
