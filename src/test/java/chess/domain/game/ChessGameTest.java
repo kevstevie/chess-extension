@@ -1,6 +1,11 @@
 package chess.domain.game;
 
-import chess.domain.piece.*;
+import chess.domain.piece.Knight;
+import chess.domain.piece.Piece;
+import chess.domain.piece.Pieces;
+import chess.domain.piece.Queen;
+import chess.domain.piece.castle.King;
+import chess.domain.piece.castle.Rook;
 import chess.domain.player.Color;
 import chess.domain.player.Player;
 import chess.domain.position.File;
@@ -83,6 +88,21 @@ class ChessGameTest {
         boolean check = chessGame.isCheck();
 
         assertThat(check).isTrue();
+    }
+
+    @Test
+    void isCheck_e4f5h4_true() {
+        final var chessGame = ChessGame.ofInitialPieces();
+        chessGame.move(new Position(File.E, Rank.TWO), new Position(File.E, Rank.FOUR));
+        chessGame.move(new Position(File.F, Rank.SEVEN), new Position(File.F, Rank.FIVE));
+        chessGame.move(new Position(File.D, Rank.ONE), new Position(File.H, Rank.FIVE));
+
+        boolean check = chessGame.isCheck();
+        boolean checkMate = chessGame.isCheckMate();
+        Assertions.assertAll(
+                () -> assertThat(check).isTrue(),
+                () -> assertThat(checkMate).isFalse()
+        );
     }
 
     @Test
